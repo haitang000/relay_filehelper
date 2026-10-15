@@ -1,0 +1,34 @@
+.brand-home{border:0;background:transparent;padding:0 8px;text-align:left;align-self:flex-start;border-radius:10px;flex-shrink:0}
+.brand-home:disabled{opacity:.55}
+button.sidebar-overview{border:0;background:transparent;width:100%;text-align:left;border-radius:9px;margin-bottom:5px;font-weight:500;flex-shrink:0;min-height:44px}
+button.sidebar-overview:hover:not(:disabled),button.sidebar-overview.active{background:#f0effd;color:#655bd2}
+button.sidebar-overview:disabled{opacity:.5}
+.breadcrumb>button{border:0;background:transparent;font:inherit;color:#8b90a7;padding:5px 2px;border-radius:4px;white-space:nowrap}
+.breadcrumb>button:hover:not(:disabled){color:#5955d9;text-decoration:underline;text-underline-offset:4px}
+.breadcrumb>button[aria-current="page"]{color:#595d76;font-weight:600}
+.breadcrumb>button:disabled{opacity:.5}
+.room-back.MuiButton-root{font-size:12px;color:#8387a2;margin:-15px 0 17px;padding:5px 3px}
+.directory-heading{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:30px}
+.directory-heading .eyebrow{font-size:9px;letter-spacing:1.8px;margin-bottom:10px}
+.directory-heading h1{font-size:28px;letter-spacing:-.6px;font-weight:700}
+.directory-heading p{font-size:12px;color:#9297ac;margin-top:10px}
+.directory-actions{display:flex;gap:12px;flex-shrink:0}
+.directory-actions .MuiButton-root{font-size:12px}
+.room-card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;padding-bottom:30px}
+.room-card{padding:23px;display:flex;flex-direction:column;min-width:0}
+.room-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.room-card-icon{width:47px;height:47px;border-radius:13px;display:grid;place-items:center;color:#8c7ed0;background:#f0edfc}
+.room-card-top .MuiChip-root{height:24px;font-size:10px;color:#9285b6;border-color:#eae5f5}
+.room-card h2{font-size:17px;font-weight:650;overflow-wrap:anywhere;line-height:1.6}
+.room-card-meta{display:flex;gap:17px;flex-wrap:wrap;font-size:11px;color:#969bb0;margin-top:13px}
+.room-card-meta>span{display:flex;align-items:center;gap:5px}
+.room-card-storage{margin:27px 0 17px;font-size:10px;color:#a0a5b7}
+.room-card-storage .MuiLinearProgress-root{height:4px;background:#f0eef8;border-radius:5px;margin-top:10px}
+.room-card>.MuiButton-root{font-size:12px;margin-top:auto;background:#f8f7fd}
+.directory-empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:65px 24px;gap:16px}
+.directory-empty .empty-icon{margin-bottom:0}
+.directory-empty h1,.directory-empty h2{font-size:19px;font-weight:600}
+.directory-empty p{font-size:12px;color:#969bb0;line-height:1.9}
+.directory-empty .MuiButton-root{margin-top:8px;font-size:12px}
+@media(max-width:760px){.directory-heading{align-items:flex-start;flex-direction:column;gap:22px}.directory-heading h1{font-size:25px}.directory-actions{gap:10px}.directory-actions .MuiButton-root{font-size:11px}.room-card-grid{gap:17px}.room-back.MuiButton-root{margin:-10px 0 15px;font-size:11px}.breadcrumb{gap:8px}.breadcrumb strong{max-width:170px}}
+@media(max-width:520px){.directory-heading h1{font-size:23px}.directory-heading p{font-size:11px}.room-card-grid{grid-template-columns:minmax(0,1fr)}.room-card{padding:21px}.breadcrumb>button{font-size:10px}.breadcrumb strong{max-width:96px;font-size:10px}.breadcrumb{gap:6px}.breadcrumb>svg{width:11px;flex-shrink:0}.room-back.MuiButton-root{margin-top:-8px}.topbar-right{flex-shrink:0}}

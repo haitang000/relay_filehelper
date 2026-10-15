@@ -1,0 +1,35 @@
+{
+  "name": "relay-file-helper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.0.0 <25" },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"node --env-file-if-exists=.env --watch server/index.mjs\" \"vite --host 127.0.0.1\"",
+    "build": "tsc --noEmit && vite build",
+    "package:server": "npm run build && npm --prefix deploy/runtime ci --omit=dev --ignore-scripts && node scripts/package-server.mjs",
+    "package:web": "npm run build && node scripts/package-web.mjs",
+    "start": "node --env-file-if-exists=.env server/index.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "reset-password": "node --env-file-if-exists=.env server/reset-password.mjs"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.3.0",
+    "busboy": "^1.6.0",
+    "express": "^5.1.0",
+    "helmet": "^8.1.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.2.0",
+    "typescript": "^5.9.0",
+    "vite": "^7.1.0"
+  }
+}

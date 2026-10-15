@@ -1,0 +1,21 @@
+services:
+  relay:
+    build: .
+    restart: unless-stopped
+    init: true
+    ports:
+      - "127.0.0.1:3001:3001"
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3001
+      DATA_DIR: /app/data
+    volumes:
+      - relay-data:/app/data
+    stop_grace_period: 20s
+    security_opt:
+      - no-new-privileges:true
+volumes:
+  relay-data:

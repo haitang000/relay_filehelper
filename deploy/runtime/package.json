@@ -1,0 +1,16 @@
+{
+  "name": "relay-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24.0.0 <25" },
+  "scripts": {
+    "start": "node start.mjs",
+    "reset-password": "node --env-file=.env server/reset-password.mjs"
+  },
+  "dependencies": {
+    "busboy": "1.6.0",
+    "express": "5.3.0",
+    "helmet": "8.3.0"
+  }
+}
