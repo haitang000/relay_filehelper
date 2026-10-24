@@ -7,5 +7,9 @@ export function routeFromHash(hash: string): AppRoute {
 }
 
 export function routeHash(route: AppRoute): string {
-  return route.page === 'room' ? `#/rooms/${route.roomId}` : route.page === 'workspace' ? '#/workspace' : '#/';
+  return route.page === 'room'
+    ? `#/rooms/${route.roomId}`
+    : route.page === 'workspace'
+      ? '#/workspace'
+      : '#/';
 }
