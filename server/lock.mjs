@@ -1,4 +1,4 @@
-import { closeSync, openSync, readFileSync, unlinkSync, writeSync } from 'node:fs';
+import { closeSync, mkdirSync, openSync, readFileSync, unlinkSync, writeSync } from 'node:fs';
 import { join } from 'node:path';
 
 function processAlive(pid) {
@@ -12,6 +12,7 @@ function processAlive(pid) {
 }
 
 export function acquireDataLock(dataDir) {
+  mkdirSync(dataDir, { recursive: true });
   const path = join(dataDir, 'relay.lock');
   const claim = (attempt) => {
     try {
