@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { mkdtemp, rm } from 'node:fs/promises';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { request as httpRequest } from 'node:http';
@@ -230,6 +230,49 @@ test('停用账号、命令行建号，以及未读完的拒绝请求会断开',
     request.end('x');
   });
   assert.ok(after <= before, `连接没有在拒绝后释放：${before} -> ${after}`);
+});
+
+test('数据目录不存在时首次启动会创建目录并加锁', async (t) => {
+  const parent = await mkdtemp(join(tmpdir(), 'relay-fresh-'));
+  const dataDir = join(parent, 'data');
+  t.after(() => rm(parent, { recursive: true, force: true }));
+  assert.equal(existsSync(dataDir), false);
+  const service = createApp({ dataDir, cleanupIntervalMs: 0 });
+  t.after(() => service.close());
+  assert.equal(readFileSync(join(dataDir, 'relay.lock'), 'utf8'), String(process.pid));
+  assert.equal(existsSync(join(dataDir, 'relay.sqlite')), true);
+  service.close();
+  assert.equal(existsSync(join(dataDir, 'relay.lock')), false);
+});
+
+test('默认 ./data 不存在时首次启动会创建数据目录', (t) => {
+  const cwd = mkdtempSync(join(tmpdir(), 'relay-cwd-'));
+  t.after(() => rmSync(cwd, { recursive: true, force: true }));
+  const env = {
+    PATH: process.env.PATH,
+    HOME: process.env.HOME,
+    TMPDIR: process.env.TMPDIR,
+    NODE_ENV: 'development',
+  };
+  const appUrl = new URL('../server/app.mjs', import.meta.url);
+  const result = spawnSync(
+    process.execPath,
+    [
+      '--input-type=module',
+      '-e',
+      [
+        `import { createApp } from ${JSON.stringify(appUrl.href)};`,
+        `import { existsSync, readFileSync } from 'node:fs';`,
+        `const service = createApp({ cleanupIntervalMs: 0 });`,
+        `const lock = readFileSync('data/relay.lock', 'utf8');`,
+        `if (lock !== String(process.pid) || !existsSync('data/relay.sqlite')) process.exit(2);`,
+        `service.close();`,
+        `if (existsSync('data/relay.lock')) process.exit(3);`,
+      ].join('\n'),
+    ],
+    { cwd, env, encoding: 'utf8' },
+  );
+  assert.equal(result.status, 0, result.stderr || result.stdout);
 });
 
 test('第二个进程不能打开同一数据目录', async (t) => {
