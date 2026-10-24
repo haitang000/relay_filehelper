@@ -1,0 +1,13 @@
+node_modules
+dist
+coverage
+.deployment
+package-lock.json
+deploy/runtime/package-lock.json
+deploy/runtime/node_modules
+docs
+playwright-report
+test-results
+*.jpg
+*.png
+*.svg
